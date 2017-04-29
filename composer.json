@@ -1,0 +1,12 @@
+{
+    "name": "vifix/smile-framework",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mac Chow",
+            "email": "vifix.mac@gmail.com"
+        }
+    ],
+    "require": {}
+}
