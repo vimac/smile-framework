@@ -4,6 +4,7 @@
 namespace Smile\Router;
 
 
+use Smile\Exceptions\RouteException;
 use Smile\Util\Map;
 
 class Route
