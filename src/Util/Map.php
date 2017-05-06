@@ -54,6 +54,14 @@ class Map implements MapInterface
         $this->data = [];
     }
 
+    public function replace(array $data)
+    {
+        foreach ($data as $key => $value)
+        {
+            $this->data[$key] = $value;
+        }
+    }
+
     public function offsetExists($offset)
     {
         return $this->has($offset);
