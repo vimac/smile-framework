@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Smile\DI;
+namespace Smile\Di;
 
 
 /**
  * 依赖注入容器中的元素的实现类
  *
- * @package Smile\DI
+ * @package Smile\Di
  */
 class ElementDefinition
 {
