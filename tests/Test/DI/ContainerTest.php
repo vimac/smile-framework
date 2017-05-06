@@ -5,19 +5,18 @@ namespace Smile\Test\DI;
 
 use PHPUnit\Framework\TestCase;
 use Smile\DI\Container;
-use Smile\DI\ContainerException;
-use Smile\DI\DefaultContainerImpl;
 use Smile\DI\ElementDefinition;
+use Smile\Interfaces\ContainerInterface;
 
 /**
  * Class DefaultContainerImplTest
  * @package Smile\Test\DI
  */
-class DefaultContainerImplTest extends TestCase
+class ContainerTest extends TestCase
 {
     public function containerProvider()
     {
-        $container = new DefaultContainerImpl();
+        $container = new Container();
 
         //之所以这里是个二维数组, 是因为phpunit每次都会扫描这里的一个一维数组作为用dataProvider注入的函数
         return [
@@ -29,9 +28,9 @@ class DefaultContainerImplTest extends TestCase
      * 测试命名空间自动组装
      *
      * @dataProvider containerProvider
-     * @param Container $container
+     * @param \Smile\Interfaces\ContainerInterface $container
      */
-    public function testAutowired(Container $container)
+    public function testAutowired(ContainerInterface $container)
     {
         $container->enableAutowiredForNamespace(__NAMESPACE__);
         $object = $container->getByType(TestClassA::class);
@@ -42,9 +41,9 @@ class DefaultContainerImplTest extends TestCase
      * 测试立即初始化
      *
      * @dataProvider containerProvider
-     * @param Container $container
+     * @param \Smile\Interfaces\ContainerInterface $container
      */
-    public function testEagerInit(Container $container)
+    public function testEagerInit(ContainerInterface $container)
     {
         $container->set(
             (new ElementDefinition())
@@ -56,7 +55,7 @@ class DefaultContainerImplTest extends TestCase
         $object = $container->getByType(TestClassB::class);
         $this->assertInstanceOf(TestClassB::class, $object);
 
-        $this->expectException(ContainerException::class);
+        $this->expectException(\Smile\Exceptions\ContainerException::class);
         $this->expectExceptionMessageRegExp('/原型作用域不支持立即实例化/');
         $container->set(
             (new ElementDefinition())
@@ -70,9 +69,9 @@ class DefaultContainerImplTest extends TestCase
      * 测试延迟初始化
      *
      * @dataProvider containerProvider
-     * @param Container $container
+     * @param ContainerInterface $container
      */
-    public function testDeferredInit(Container $container)
+    public function testDeferredInit(\Smile\Interfaces\ContainerInterface $container)
     {
         $container->set(
             (new ElementDefinition())
@@ -87,9 +86,9 @@ class DefaultContainerImplTest extends TestCase
      * 测试原型作用域
      *
      * @dataProvider containerProvider
-     * @param Container $container
+     * @param \Smile\Interfaces\ContainerInterface $container
      */
-    public function testPrototype(Container $container)
+    public function testPrototype(ContainerInterface $container)
     {
         $container->set(
             (new ElementDefinition())
@@ -108,9 +107,9 @@ class DefaultContainerImplTest extends TestCase
      * 测试单例作用域
      *
      * @dataProvider containerProvider
-     * @param Container $container
+     * @param \Smile\Interfaces\ContainerInterface $container
      */
-    public function testSingleton(Container $container)
+    public function testSingleton(\Smile\Interfaces\ContainerInterface $container)
     {
         $container->set(
             (new ElementDefinition())
@@ -129,11 +128,11 @@ class DefaultContainerImplTest extends TestCase
      * 测试循环引用报错
      *
      * @dataProvider containerProvider
-     * @param Container $container
+     * @param ContainerInterface $container
      */
-    public function testCircleDep(Container $container)
+    public function testCircleDep(\Smile\Interfaces\ContainerInterface $container)
     {
-        $this->expectException(ContainerException::class);
+        $this->expectException(\Smile\Exceptions\ContainerException::class);
         $this->expectExceptionMessageRegExp('/循环/');
         $container->enableAutowiredForNamespace(__NAMESPACE__);
         $obj = $container->getByType(TestCircleDepClassA::class);
@@ -143,9 +142,9 @@ class DefaultContainerImplTest extends TestCase
      * 测试别名
      *
      * @dataProvider containerProvider
-     * @param Container $container
+     * @param ContainerInterface $container
      */
-    public function testAlias(Container $container)
+    public function testAlias(\Smile\Interfaces\ContainerInterface $container)
     {
         $container->set(
             (new ElementDefinition())
