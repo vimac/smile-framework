@@ -30,6 +30,18 @@ class ApplicationTest extends TestCase
                             ->setTarget(TestController::class)
                     );
                 }
+            ],
+            [
+                function (ContainerInterface $container) {
+                    $container->enableAutowiredForNamespace(__NAMESPACE__);
+                },
+                function (RouterInterface $router) {
+                    $router->addRoute(
+                        (new Route)
+                            ->put('/{a}[/{b}[/{c}]]')
+                            ->setTarget([AnotherTestController::class, 'hello'])
+                    );
+                }
             ]
         ];
     }
@@ -62,7 +74,15 @@ class TestController extends BaseController
 {
     public function test(ServerRequestInterface $request, ResponseInterface $response)
     {
-        return $response->withJson($request->getQueryParams());
+        return $response->withJson(['abcdefg']);
     }
 }
 
+
+class AnotherTestController extends BaseController
+{
+    public function hello(ServerRequestInterface $request, ResponseInterface $response)
+    {
+        return $response->withJson(['hello']);
+    }
+}
