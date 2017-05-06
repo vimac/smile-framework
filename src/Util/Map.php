@@ -4,21 +4,21 @@
 namespace Smile\Util;
 
 
-use ArrayAccess;
+use Smile\Interfaces\MapInterface;
 
-class Map implements ArrayAccess
+class Map implements MapInterface
 {
-    private $input;
+    private $data;
 
-    public function __construct(array $input)
+    public function __construct(array $data = [])
     {
-        $this->input = $input;
+        $this->data = $data;
     }
 
     public function get($key, $defaultValue = null)
     {
-        if (isset($this->input[$key])) {
-            return $this->input[$key];
+        if (isset($this->data[$key])) {
+            return $this->data[$key];
         } else {
             return $defaultValue;
         }
@@ -26,16 +26,37 @@ class Map implements ArrayAccess
 
     public function getAll()
     {
-        return $this->input;
+        return $this->data;
+    }
+
+    public function keys()
+    {
+        return array_keys($this->data);
+    }
+
+    public function has($key)
+    {
+        return array_key_exists($key, $this->data);
+    }
+
+    public function set($key, $value)
+    {
+        $this->data[$key] = $value;
+    }
+
+    public function remove($key)
+    {
+        unset($this->data[$key]);
+    }
+
+    public function clear()
+    {
+        $this->data = [];
     }
 
     public function offsetExists($offset)
     {
-        if (isset($this->input[$offset])) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->has($offset);
     }
 
     public function offsetGet($offset)
@@ -45,11 +66,11 @@ class Map implements ArrayAccess
 
     public function offsetSet($offset, $value)
     {
-        return null;
+        $this->set($offset, $value);
     }
 
     public function offsetUnset($offset)
     {
-        return null;
+        $this->remove($offset);
     }
 }

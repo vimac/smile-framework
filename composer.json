@@ -8,7 +8,9 @@
             "email": "vifix.mac@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "psr/http-message": "^1.0"
+    },
     "autoload": {
         "psr-4": {
             "Smile\\" : "src"
