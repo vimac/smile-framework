@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Smile\DI;
+namespace Smile\Di;
 
 use ReflectionClass;
 use ReflectionFunction;
@@ -13,7 +13,7 @@ use Smile\Interfaces\ContainerInterface;
 /**
  * 依赖注入容器接口的默认实现, 可以运用在大部分的场景下
  *
- * @package Smile\DI
+ * @package Smile\Di
  */
 class Container implements ContainerInterface
 {
