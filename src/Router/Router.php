@@ -4,7 +4,10 @@
 namespace Smile\Router;
 
 
-class Router
+use Smile\Exceptions\RouterException;
+use Smile\Interfaces\RouterInterface;
+
+class Router implements RouterInterface
 {
     /**
      * 这是一个关联数组, key 为 Route 的名称, value 为 Route

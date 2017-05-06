@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Smile\Router;
+namespace Smile\Exceptions;
 
 
 use Exception;
