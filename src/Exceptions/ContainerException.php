@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Smile\DI;
+namespace Smile\Exceptions;
 
 
 use Exception;
