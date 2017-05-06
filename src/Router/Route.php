@@ -117,6 +117,24 @@ class Route
     }
 
     /**
+     * 获取执行目标
+     *
+     * @return mixed
+     */
+    public function getTarget()
+    {
+        return $this->target;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlRule()
+    {
+        return $this->urlRule;
+    }
+
+    /**
      * 设置名称
      *
      * @param string $name

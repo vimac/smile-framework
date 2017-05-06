@@ -25,4 +25,6 @@ interface MapInterface extends ArrayAccess
     public function remove($key);
 
     public function clear();
+
+    public function replace(array $data);
 }
