@@ -4,8 +4,8 @@
 namespace Smile\Test\DI;
 
 use PHPUnit\Framework\TestCase;
-use Smile\DI\Container;
-use Smile\DI\ElementDefinition;
+use Smile\Di\Container;
+use Smile\Di\ElementDefinition;
 use Smile\Interfaces\ContainerInterface;
 
 /**
